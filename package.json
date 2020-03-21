@@ -1,0 +1,16 @@
+{
+  "name": "berlin_en_news",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Vinicius Kiatkoski Neves <viniciuskneves@icloud.com> (https://twitter.com/viniciuskneves)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "0.19.2",
+    "cheerio": "1.0.0-rc.3",
+    "twitter": "1.7.1"
+  }
+}
