@@ -24,11 +24,15 @@ async function fetchArticles() {
     };
   }).toArray();
 
+  console.log('Fetched articles: ', articles);
+
   return articles;
 }
 
 async function fetchFirst5Articles() {
   const articles = await fetchArticles();
+
+  console.log('Selected 5 articles: ', articles);
 
   return articles.slice(0,5);
 }
@@ -39,13 +43,15 @@ async function postTweet(status) {
     place_id: placeId,
   });
 
-  console.log(JSON.stringify(response));
+  return response;
 }
 
 async function homeTimeline() {
   try {
     const response = await client.get('statuses/user_timeline', {});
     const responseTitles = response.map((tweet) => tweet.text.split('\n')[0]);
+
+    console.log('Last tweets titles: ', responseTitles);
     
     return responseTitles;
   } catch(e) {
@@ -53,9 +59,11 @@ async function homeTimeline() {
   }
 }
 
-(async function() {
+exports.handler = async function handler() {
   const [articles, tweets] = await Promise.all([fetchFirst5Articles(), homeTimeline()]);
   const newArticles = articles.filter(article => !tweets.includes(article.title));
+
+  console.log('New articles: ', newArticles);
 
   for (const article of newArticles) {
     const response = await postTweet([
@@ -63,6 +71,6 @@ async function homeTimeline() {
       `Read more: ${article.link}`,
     ].join('\n'));
 
-    console.log(response);
+    console.log('Tweet response: ', response);
   }
-})();
+};

@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "berlin-en-news"
+s3_bucket = "aws-sam-cli-managed-deployment"
+s3_prefix = "berlin_en_news"
+region = "eu-central-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
