@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Belin EN News Twitter bot
+
+Parameters:
+  TwitterApiKey:
+    Description: Twitter API Key
+    NoEcho: true
+    Type: String
+  TwitterApiSecretKey:
+    Description: Twitter API Secret Key
+    NoEcho: true
+    Type: String
+  TwitterAccessToken:
+    Description: Twitter Access Token
+    NoEcho: true
+    Type: String
+  TwitterAccessTokenSecret:
+    Description: Twitter Access Token Secret
+    NoEcho: true
+    Type: String
+
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 5
+    Environment:
+      Variables:
+        TWITTER_API_KEY: !Ref TwitterApiKey
+        TWITTER_API_SECRET_KEY: !Ref TwitterApiSecretKey
+        TWITTER_ACCESS_TOKEN: !Ref TwitterAccessToken
+        TWITTER_ACCESS_TOKEN_SECRET: !Ref TwitterAccessTokenSecret
+
+Resources:
+  TwitterBotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Events:
+        Scheduler:
+          Type: Schedule
+          Properties:
+            Description: Schedule execution for every 30min
+            Enabled: true
+            Schedule: 'rate(30 minutes)'
+            
+Outputs:
+  SchedulerRule:
+    Description: Twitter BOT scheduler rule
+    Value: !Ref TwitterBotFunctionScheduler

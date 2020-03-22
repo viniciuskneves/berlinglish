@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "sam build",
+    "predeploy": "npm run build",
+    "deploy": "sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET"
   },
   "keywords": [],
   "author": "Vinicius Kiatkoski Neves <viniciuskneves@icloud.com> (https://twitter.com/viniciuskneves)",

@@ -1,8 +1,16 @@
 # Berlin EN News
 
-Belin EN News Twitter bot. It fetches news from https://www.berlin.de/en/news/ and Tweets to [@Berlin_EN_News](https://twitter.com/berlin_en_news).
+Berlin EN News Twitter bot. It fetches news from https://www.berlin.de/en/news/ and Tweets to [@Berlin_EN_News](https://twitter.com/berlin_en_news).
 
-## Installation
+## Setup
+
+### Requirements
+
+- Node.js: v12
+  -  Recommendation: [NVM](https://github.com/nvm-sh/nvm)
+- [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html): Only for deployment
+
+### Installing dependencies
 
 ```bash
 npm install
@@ -22,6 +30,14 @@ The following environment variables need to be present:
 
 ```bash
 npm start
+```
+
+## Deployment
+
+**Requires all the [Twitter environment variables](####Twitter) to be exported**
+
+```bash
+npm run deploy
 ```
 
 ## Contributing
