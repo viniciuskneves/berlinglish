@@ -34,7 +34,7 @@ npm start
 
 ## Deployment
 
-**Requires all the [Twitter environment variables](####Twitter) to be exported**
+**Requires all the [Twitter environment variables](#Twitter) to be exported**
 
 ```bash
 npm run deploy
