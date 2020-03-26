@@ -18,9 +18,11 @@ async function fetchArticles() {
   // .special might include some "random" articles
   const articles = $('#hnews').parent().find('article').not('.special').map(function() {
     const heading = $(this).find('.heading');
+    const thumbnail = $(this).find('img').attr('src');
     return {
       title: heading.text(),
       link: `${BASE_URL}${heading.find('a').attr('href')}`,
+      thumbnail: `${BASE_URL}${thumbnail}`
     };
   }).toArray();
 
@@ -37,13 +39,46 @@ async function fetchFirst5Articles() {
   return articles.slice(0,5);
 }
 
-async function postTweet(status) {
+async function postTweet({status, media_ids}) {
   const response = await client.post('statuses/update', {
     status,
+    media_ids,
     place_id: placeId,
   });
 
   return response;
+}
+
+async function postImage(image) {
+  try {
+    const {media_id_string} = await client.post('media/upload', {media: image});
+    console.log('Received image ID: ', media_id_string);
+
+    return media_id_string;
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+async function fetchImage(url) {
+  try {
+    const {data} = await axios.get(url, { responseType: 'arraybuffer' });
+
+    console.log('Downloaded image: ', data)
+    return data;
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+async function fetchImageId(url) {
+  try {
+    const image = await fetchImage(url);
+    const id= await postImage(image);
+    return id;
+  } catch(e) {
+    console.error(e);
+  }
 }
 
 async function homeTimeline() {
@@ -52,7 +87,7 @@ async function homeTimeline() {
     const responseTitles = response.map((tweet) => tweet.text.split('\n')[0]);
 
     console.log('Last tweets titles: ', responseTitles);
-    
+
     return responseTitles;
   } catch(e) {
     console.error(e);
@@ -66,10 +101,9 @@ exports.handler = async function handler() {
   console.log('New articles: ', newArticles);
 
   for (const article of newArticles) {
-    const response = await postTweet([
-      article.title,
-      `Read more: ${article.link}`,
-    ].join('\n'));
+    const status = [article.title, `Read more: ${article.link}`].join('\n');
+    const media_ids = await fetchImageId(article.thumbnail);
+    const response = await postTweet({status, media_ids});
 
     console.log('Tweet response: ', response);
   }
