@@ -7,6 +7,9 @@
   "bugs": "https://github.com/viniciuskneves/berlin_en_news/issues",
   "license": "MIT",
   "author": "Vinicius Kiatkoski Neves <viniciuskneves@icloud.com> (https://twitter.com/viniciuskneves)",
+  "contributors": [
+    "Leonardo Pavan Rocha <leonardo.rocha.pavan@gmail.com> (https://twitter.com/leopavanrocha)"
+  ],
   "repository": "github:viniciuskneves/berlin_en_news",
   "scripts": {
     "start": "node index.js",
