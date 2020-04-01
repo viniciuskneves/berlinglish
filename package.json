@@ -1,18 +1,23 @@
 {
-  "name": "berlin_en_news",
+  "name": "berlinglish",
   "version": "1.0.0",
-  "description": "Berlin EN News Twitter bot.  It fetches news from https://www.berlin.de/en/news/ and Tweets to @Berlin_EN_News.",
-  "keywords": ["berlin", "news", "twitter", "bot"],
-  "homepage": "https://github.com/viniciuskneves/berlin_en_news/blob/master/README.md",
-  "bugs": "https://github.com/viniciuskneves/berlin_en_news/issues",
+  "description": "Berlin in English Twitter BOT.  It fetches news from https://www.berlin.de/en/news/ and Tweets to @Berlinglish.",
+  "keywords": [
+    "berlin",
+    "news",
+    "twitter",
+    "bot"
+  ],
+  "homepage": "https://github.com/viniciuskneves/berlinglish/blob/master/README.md",
+  "bugs": "https://github.com/viniciuskneves/berlinglish/issues",
   "license": "MIT",
   "author": "Vinicius Kiatkoski Neves <viniciuskneves@icloud.com> (https://twitter.com/viniciuskneves)",
   "contributors": [
     "Leonardo Pavan Rocha <leonardo.rocha.pavan@gmail.com> (https://twitter.com/leopavanrocha)"
   ],
-  "repository": "github:viniciuskneves/berlin_en_news",
+  "repository": "github:viniciuskneves/berlinglish",
   "scripts": {
-    "start": "node index.js",
+    "start": "node -e 'require(\"./index.js\").handler()'",
     "build": "sam build",
     "predeploy": "npm run build",
     "deploy": "sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET"

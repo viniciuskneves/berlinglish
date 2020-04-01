@@ -31,12 +31,12 @@ async function fetchArticles() {
   return articles;
 }
 
-async function fetchFirst5Articles() {
+async function fetchFirst3Articles() {
   const articles = await fetchArticles();
 
-  console.log('Selected 5 articles: ', articles);
+  console.log('Selected 3 articles: ', articles);
 
-  return articles.slice(0,5);
+  return articles.slice(0,3);
 }
 
 async function postTweet({status, media_ids}) {
@@ -95,7 +95,7 @@ async function homeTimeline() {
 }
 
 exports.handler = async function handler() {
-  const [articles, tweets] = await Promise.all([fetchFirst5Articles(), homeTimeline()]);
+  const [articles, tweets] = await Promise.all([fetchFirst3Articles(), homeTimeline()]);
   const newArticles = articles.filter(article => !tweets.includes(article.title));
 
   console.log('New articles: ', newArticles);

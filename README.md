@@ -1,6 +1,6 @@
-# Berlin EN News
+# Berlinglish
 
-Berlin EN News Twitter bot. It fetches news from https://www.berlin.de/en/news/ and Tweets to [@Berlin_EN_News](https://twitter.com/berlin_en_news).
+Berlin in English Twitter BOT. It fetches news from https://www.berlin.de/en/news/ and Tweets to [@Berlinglish](https://twitter.com/berlinglish).
 
 ## Setup
 
