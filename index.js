@@ -16,15 +16,20 @@ async function fetchArticles() {
   const response = await axios(`${BASE_URL}${NEWS_PATH}`);
   const $ = cheerio.load(response.data);
   // .special might include some "random" articles
-  const articles = $('#hnews').parent().find('article').not('.special').map(function() {
-    const heading = $(this).find('.heading');
-    const thumbnail = $(this).find('img').attr('src');
-    return {
-      title: heading.text(),
-      link: `${BASE_URL}${heading.find('a').attr('href')}`,
-      thumbnail: `${BASE_URL}${thumbnail}`
-    };
-  }).toArray();
+  const articles = $('#hnews')
+    .parent()
+    .find('article')
+    .not('.special')
+    .map(function () {
+      const heading = $(this).find('.heading');
+      const thumbnail = $(this).find('img').attr('src');
+      return {
+        title: heading.text(),
+        link: `${BASE_URL}${heading.find('a').attr('href')}`,
+        thumbnail: `${BASE_URL}${thumbnail}`,
+      };
+    })
+    .toArray();
 
   console.log('Fetched articles: ', articles);
 
@@ -36,10 +41,10 @@ async function fetchFirst3Articles() {
 
   console.log('Selected 3 articles: ', articles);
 
-  return articles.slice(0,3);
+  return articles.slice(0, 3);
 }
 
-async function postTweet({status, media_ids}) {
+async function postTweet({ status, media_ids }) {
   const response = await client.post('statuses/update', {
     status,
     media_ids,
@@ -51,22 +56,24 @@ async function postTweet({status, media_ids}) {
 
 async function postImage(image) {
   try {
-    const {media_id_string} = await client.post('media/upload', {media: image});
+    const { media_id_string } = await client.post('media/upload', {
+      media: image,
+    });
     console.log('Received image ID: ', media_id_string);
 
     return media_id_string;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
 }
 
 async function fetchImage(url) {
   try {
-    const {data} = await axios.get(url, { responseType: 'arraybuffer' });
+    const { data } = await axios.get(url, { responseType: 'arraybuffer' });
 
-    console.log('Downloaded image: ', data)
+    console.log('Downloaded image: ', data);
     return data;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
 }
@@ -74,9 +81,9 @@ async function fetchImage(url) {
 async function fetchImageId(url) {
   try {
     const image = await fetchImage(url);
-    const id= await postImage(image);
+    const id = await postImage(image);
     return id;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
 }
@@ -89,21 +96,26 @@ async function homeTimeline() {
     console.log('Last tweets titles: ', responseTitles);
 
     return responseTitles;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
 }
 
 exports.handler = async function handler() {
-  const [articles, tweets] = await Promise.all([fetchFirst3Articles(), homeTimeline()]);
-  const newArticles = articles.filter(article => !tweets.includes(article.title));
+  const [articles, tweets] = await Promise.all([
+    fetchFirst3Articles(),
+    homeTimeline(),
+  ]);
+  const newArticles = articles.filter(
+    (article) => !tweets.includes(article.title),
+  );
 
   console.log('New articles: ', newArticles);
 
   for (const article of newArticles) {
     const status = [article.title, `Read more: ${article.link}`].join('\n');
     const media_ids = await fetchImageId(article.thumbnail);
-    const response = await postTweet({status, media_ids});
+    const response = await postTweet({ status, media_ids });
 
     console.log('Tweet response: ', response);
   }

@@ -20,11 +20,23 @@
     "start": "node -e 'require(\"./index.js\").handler()'",
     "build": "sam build",
     "predeploy": "npm run build",
-    "deploy": "sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET"
+    "deploy": "sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET",
+    "prettier": "prettier --write .",
+    "prettier:ci": "prettier --check ."
   },
   "dependencies": {
     "axios": "0.19.2",
     "cheerio": "1.0.0-rc.3",
     "twitter": "1.7.1"
+  },
+  "devDependencies": {
+    "husky": "4.2.3",
+    "prettier": "2.0.2",
+    "pretty-quick": "2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --verbose"
+    }
   }
 }
