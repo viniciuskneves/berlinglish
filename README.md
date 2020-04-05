@@ -7,7 +7,7 @@ Berlin in English Twitter BOT. It fetches news from https://www.berlin.de/en/new
 ### Requirements
 
 - Node.js: v12
-  -  Recommendation: [NVM](https://github.com/nvm-sh/nvm)
+  - Recommendation: [NVM](https://github.com/nvm-sh/nvm)
 - [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html): Only for deployment
 
 ### Installing dependencies
@@ -45,4 +45,5 @@ npm run deploy
 Please, check open issues. There are not guidelines so far 😅
 
 ## License
+
 [MIT](LICENSE)
