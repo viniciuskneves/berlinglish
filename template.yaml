@@ -43,7 +43,7 @@ Resources:
             Description: Schedule execution for every 30min
             Enabled: true
             Schedule: 'rate(30 minutes)'
-            
+
 Outputs:
   SchedulerRule:
     Description: Twitter BOT scheduler rule
