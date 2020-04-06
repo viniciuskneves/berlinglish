@@ -22,11 +22,9 @@ async function fetchArticles() {
     .not('.special')
     .map(function () {
       const heading = $(this).find('.heading');
-      const thumbnail = $(this).find('img').attr('src');
       return {
         title: heading.text(),
         link: `${BASE_URL}${heading.find('a').attr('href')}`,
-        thumbnail: `${BASE_URL}${thumbnail}`,
       };
     })
     .toArray();
@@ -88,6 +86,24 @@ async function fetchImageId(url) {
   }
 }
 
+async function fetchImageUrl(url) {
+  try {
+    const response = await axios(url);
+    const $ = cheerio.load(response.data);
+    const singleImage = $('.page-mainimage').find('img').attr('src');
+    const doubleImage = $(
+      '.swiper-articleimage li.swiper-slide[data-hash="slide1"]',
+    )
+      .find('img.swiper-lazy')
+      .attr('src');
+    const imageUrl = singleImage || doubleImage;
+
+    return `${BASE_URL}${imageUrl}`;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 async function homeTimeline() {
   try {
     const response = await client.get('statuses/user_timeline', {});
@@ -110,11 +126,18 @@ exports.handler = async function handler() {
     (article) => !tweets.includes(article.title),
   );
 
-  console.log('New articles: ', newArticles);
+  const articlesWithImage = await Promise.all(
+    newArticles.map(async (article) => {
+      article.imageUrl = await fetchImageUrl(article.link);
+      return article;
+    }),
+  );
 
-  for (const article of newArticles) {
+  console.log('New articles: ', articlesWithImage);
+
+  for (const article of articlesWithImage) {
     const status = [article.title, `Read more: ${article.link}`].join('\n');
-    const media_ids = await fetchImageId(article.thumbnail);
+    const media_ids = await fetchImageId(article.imageUrl);
     const response = await postTweet({ status, media_ids });
 
     console.log('Tweet response: ', response);
