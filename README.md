@@ -1,3 +1,5 @@
+![GitHub Actions Badge](https://github.com/viniciuskneves/berlinglish/workflows/CI/badge.svg)
+
 # Berlinglish
 
 Berlin in English Twitter BOT. It fetches news from https://www.berlin.de/en/news/ and Tweets to [@Berlinglish](https://twitter.com/berlinglish).
