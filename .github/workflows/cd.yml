@@ -8,7 +8,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Python
+      - name: Python version
         run: python --version
-      - name: Pip
+      - name: pip version
         run: pip --version
+      - name: Install AWS SAM CLI
+        run: pip install aws-sam-cli
+      - name: AWS SAM CLI version
+        run: sam --version
