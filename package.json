@@ -30,7 +30,7 @@
     "twitter": "1.7.1"
   },
   "devDependencies": {
-    "husky": "4.2.3",
+    "husky": "4.2.5",
     "prettier": "2.0.4",
     "pretty-quick": "2.0.1"
   },
