@@ -13,6 +13,6 @@ jobs:
       - name: pip version
         run: pip --version
       - name: Install AWS SAM CLI
-        run: pip install aws-sam-cli
-      - name: AWS SAM CLI version
-        run: sam --version
+        run: |
+          pip install aws-sam-cli
+          sam --version
