@@ -17,4 +17,6 @@ jobs:
       - name: SAM build
         run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
       - name: SAM deploy
-        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam deploy --parameter-overrides TwitterApiKey="TwitterApiKey" TwitterApiSecretKey="TwitterApiSecretKey" TwitterAccessToken="TwitterAccessToken" TwitterAccessTokenSecret="TwitterAccessTokenSecret"
+        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey="TwitterApiSecretKey" TwitterAccessToken="TwitterAccessToken" TwitterAccessTokenSecret="TwitterAccessTokenSecret"
+        env:
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
