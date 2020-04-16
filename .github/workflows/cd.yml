@@ -16,3 +16,5 @@ jobs:
           /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
       - name: SAM build
         run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
+      - name: SAM deploy
+        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam deploy --parameter-overrides TwitterApiKey="TwitterApiKey" TwitterApiSecretKey="TwitterApiSecretKey" TwitterAccessToken="TwitterAccessToken" TwitterAccessTokenSecret="TwitterAccessTokenSecret"
