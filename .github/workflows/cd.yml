@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Install Homebrew
         run: |
+          echo "Testing"
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
           /home/linuxbrew/.linuxbrew/bin/brew --version
       - name: Path Homebrew
