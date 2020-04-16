@@ -14,3 +14,5 @@ jobs:
         run: /home/linuxbrew/.linuxbrew/bin/brew --version
       - name: Homebrew tap AWS
         run: /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
+      - name: Homebrew install AWS SAM CLI
+        run: /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
