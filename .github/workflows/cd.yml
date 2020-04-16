@@ -8,26 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Homebrew
+      - name: Install Homebrew and AWS SAM CLI
         run: |
-          echo "Testing"
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-          /home/linuxbrew/.linuxbrew/bin/brew --version
-      - name: Path Homebrew
-        run: |
-          test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-          test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-          test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile && source ~/.bash_profile
-          echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile && source ~/.profile
-      - name: Test Homebrew
-        run: brew --version
-      # - name: Test Homebrew
-      #   run:
-      # - name: Homebrew tap AWS
-      #   run: /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
-      # - name: Homebrew install AWS SAM CLI
-      #   run: /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
-      # - name: LS AWS SAM CLI
-      #   run: ls /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/
-      # - name: Test AWS SAM CLI
-      #   run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam --version
+          /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
+          /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli@0.47.0
+      - name: SAM build
+        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
