@@ -14,9 +14,5 @@ jobs:
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
           /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
           /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
-      - name: LS SAM
-        run: ls /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/
-      - name: LS SELF
-        run: ls -la
-      #- name: SAM build
-      #run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
+      - name: SAM build
+        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
