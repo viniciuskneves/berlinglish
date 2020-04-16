@@ -12,3 +12,5 @@ jobs:
         run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
       - name: Test Homebrew
         run: /home/linuxbrew/.linuxbrew/bin/brew --version
+      - name: Homebrew tap AWS
+        run: /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
