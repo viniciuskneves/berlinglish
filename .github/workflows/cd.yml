@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Homebrew
-        run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+        run: |
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+          /home/linuxbrew/.linuxbrew/bin/brew --version
       - name: Path Homebrew
         run: |
           test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
@@ -19,7 +21,7 @@ jobs:
       - name: Test Homebrew
         run: brew --version
       # - name: Test Homebrew
-      #   run: /home/linuxbrew/.linuxbrew/bin/brew --version
+      #   run:
       # - name: Homebrew tap AWS
       #   run: /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
       # - name: Homebrew install AWS SAM CLI
