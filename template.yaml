@@ -41,7 +41,7 @@ Resources:
           Type: Schedule
           Properties:
             Description: Schedule execution for every 30min
-            Enabled: true
+            Enabled: false
             Schedule: 'rate(30 minutes)'
 
 Outputs:
