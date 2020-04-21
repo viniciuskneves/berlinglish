@@ -1,4 +1,4 @@
-![GitHub Actions Badge](https://github.com/viniciuskneves/berlinglish/workflows/CI/badge.svg)
+![GitHub Actions Badge](https://github.com/viniciuskneves/berlinglish/workflows/Main/badge.svg)
 
 # Berlinglish
 
