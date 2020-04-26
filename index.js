@@ -76,11 +76,17 @@ async function fetchImage(url) {
   }
 }
 
-async function fetchImageId(url) {
+async function fetchImageIds(urls) {
   try {
-    const image = await fetchImage(url);
-    const id = await postImage(image);
-    return id;
+    const ids = await Promise.all(
+      urls.map(async (url) => {
+        const image = await fetchImage(url);
+        const id = await postImage(image);
+        return id;
+      }),
+    );
+
+    return ids.join();
   } catch (e) {
     console.error(e);
   }
@@ -90,15 +96,23 @@ async function fetchImageUrl(url) {
   try {
     const response = await axios(url);
     const $ = cheerio.load(response.data);
-    const singleImage = $('.page-mainimage').find('img').attr('src');
-    const doubleImage = $(
-      '.swiper-articleimage li.swiper-slide[data-hash="slide1"]',
-    )
-      .find('img.swiper-lazy')
-      .attr('src');
-    const imageUrl = singleImage || doubleImage;
+    const singleImageElement = $('.page-mainimage').find('img');
+    const multipleImageElement = $('.swiper-wrapper').find('img');
 
-    return `${BASE_URL}${imageUrl}`;
+    const element = singleImageElement.length
+      ? singleImageElement
+      : multipleImageElement;
+    const imageURls = element
+      .map(
+        (index, imageTag) =>
+          `${BASE_URL}${
+            $(imageTag).attr('data-src') || $(imageTag).attr('src')
+          }`,
+      )
+      .toArray()
+      .slice(0, 4);
+
+    return imageURls;
   } catch (e) {
     console.error(e);
   }
@@ -128,7 +142,7 @@ exports.handler = async function handler() {
 
   const articlesWithImage = await Promise.all(
     newArticles.map(async (article) => {
-      article.imageUrl = await fetchImageUrl(article.link);
+      article.imageUrls = await fetchImageUrl(article.link);
       return article;
     }),
   );
@@ -137,7 +151,7 @@ exports.handler = async function handler() {
 
   for (const article of articlesWithImage) {
     const status = [article.title, `Read more: ${article.link}`].join('\n');
-    const media_ids = await fetchImageId(article.imageUrl);
+    const media_ids = await fetchImageIds(article.imageUrls);
     const response = await postTweet({ status, media_ids });
 
     console.log('Tweet response: ', response);
