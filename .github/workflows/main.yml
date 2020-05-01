@@ -33,10 +33,10 @@ jobs:
           /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
       - name: Finx AWS SAM CLI
         run: |
-          /home/linuxbrew/.linuxbrew/bin/brew --prefix sam
+          /home/linuxbrew/.linuxbrew/bin/brew --prefix aws-sam-cli
       - name: Find AWS SAM CLI
         run: |
-          /home/linuxbrew/.linuxbrew/bin/brew --cellar sam
+          /home/linuxbrew/.linuxbrew/bin/brew --cellar aws-sam-cli
       # FIXME: This is going to break
       - name: SAM build
         run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
