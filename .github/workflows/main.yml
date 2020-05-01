@@ -2,7 +2,7 @@ name: Main
 
 on:
   push:
-    branches: [master]
+    branches: [test]
   pull_request:
     branches: [master]
 
@@ -22,10 +22,14 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
-      - name: Install Homebrew and AWS SAM CLI
+      - name: Install Homebrew
         run: |
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+      - name: Tap AWS to Homebrew
+        run: |
           /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
+      - name: Install AWS SAM CLI
+        run: |
           /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
       # FIXME: This is going to break
       - name: SAM build
