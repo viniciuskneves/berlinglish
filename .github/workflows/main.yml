@@ -20,18 +20,24 @@ jobs:
     runs-on: ubuntu-latest
     needs: ci
     if: github.event_name == 'push'
+    env:
+      HOMEBREW_PATH: /home/linuxbrew/.linuxbrew/bin/brew
+      SAM_PATH: /home/linuxbrew/.linuxbrew/opt/aws-sam-cli/bin/sam
     steps:
       - uses: actions/checkout@v2
-      - name: Install Homebrew and AWS SAM CLI
+      - name: Install Homebrew
         run: |
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-          /home/linuxbrew/.linuxbrew/bin/brew tap aws/tap
-          /home/linuxbrew/.linuxbrew/bin/brew install aws-sam-cli
-      # FIXME: This is going to break
+      - name: Tap AWS to Homebrew
+        run: |
+          $HOMEBREW_PATH tap aws/tap
+      - name: Install AWS SAM CLI
+        run: |
+          $HOMEBREW_PATH install --force aws-sam-cli
       - name: SAM build
-        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
+        run: $SAM_PATH build
       - name: SAM deploy
-        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET
+        run: $SAM_PATH deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET_KEY: ${{ secrets.TWITTER_API_SECRET_KEY }}
