@@ -38,7 +38,7 @@ jobs:
           $HOMEBREW_PATH --prefix aws-sam-cli
       # FIXME: This is going to break
       - name: SAM build
-        run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam build
+        run: /home/linuxbrew/.linuxbrew/opt/aws-sam-cli/bin/sam build
       - name: SAM deploy
         run: /home/linuxbrew/.linuxbrew/Cellar/aws-sam-cli/0.47.0/bin/sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET
         env:
