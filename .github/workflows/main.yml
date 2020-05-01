@@ -32,7 +32,7 @@ jobs:
           $HOMEBREW_PATH tap aws/tap
       - name: Install AWS SAM CLI
         run: |
-          $HOMEBREW_PATH install aws-sam-cli
+          $HOMEBREW_PATH install --force aws-sam-cli
       - name: Finx AWS SAM CLI
         run: |
           $HOMEBREW_PATH --prefix aws-sam-cli
