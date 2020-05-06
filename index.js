@@ -76,16 +76,17 @@ async function fetchImage(url) {
   }
 }
 
+async function fetchImageId(url) {
+  const image = await fetchImage(url);
+  const id = await postImage(image);
+  return id;
+}
+
 async function fetchImageIds(urls) {
   try {
     const ids = await Promise.all(
-      urls.map(async (url) => {
-        const image = await fetchImage(url);
-        const id = await postImage(image);
-        return id;
-      }),
+      urls.map(async (url) => await fetchImageId(url)),
     );
-
     return ids.join();
   } catch (e) {
     console.error(e);
@@ -96,13 +97,11 @@ async function fetchImageUrl(url) {
   try {
     const response = await axios(url);
     const $ = cheerio.load(response.data);
-    const singleImageElement = $('.page-mainimage').find('img');
-    const multipleImageElement = $('.swiper-wrapper').find('img');
+    const imageElement = $(
+      '.main-content .page-mainimage,.main-content .swiper-wrapper',
+    ).find('img');
 
-    const element = singleImageElement.length
-      ? singleImageElement
-      : multipleImageElement;
-    const imageURls = element
+    const imageURls = imageElement
       .map(
         (index, imageTag) =>
           `${BASE_URL}${
@@ -157,3 +156,5 @@ exports.handler = async function handler() {
     console.log('Tweet response: ', response);
   }
 };
+
+exports.handler();
