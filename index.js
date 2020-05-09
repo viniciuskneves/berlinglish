@@ -156,5 +156,3 @@ exports.handler = async function handler() {
     console.log('Tweet response: ', response);
   }
 };
-
-exports.handler();
