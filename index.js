@@ -84,9 +84,7 @@ async function fetchImageId(url) {
 
 async function fetchImageIds(urls) {
   try {
-    const ids = await Promise.all(
-      urls.map(async (url) => await fetchImageId(url)),
-    );
+    const ids = await Promise.all(urls.map(fetchImageId));
     return ids.join();
   } catch (e) {
     console.error(e);
