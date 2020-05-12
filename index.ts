@@ -1,3 +1,6 @@
+// FIXME: For now Typescript check will be ignored
+// @ts-nocheck
+
 const axios = require('axios');
 const cheerio = require('cheerio');
 const Twitter = require('twitter');
