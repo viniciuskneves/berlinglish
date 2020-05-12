@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2019", // Node.js v12
+    "module": "commonjs", // Node.js
+    "outDir": "dist",
+    "removeComments": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
