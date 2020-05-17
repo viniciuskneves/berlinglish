@@ -22,7 +22,8 @@
     "predeploy": "npm run build",
     "deploy": "sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET",
     "prettier": "prettier --write .",
-    "prettier:ci": "prettier --check ."
+    "prettier:ci": "prettier --check .",
+    "commit": "git-cz"
   },
   "dependencies": {
     "axios": "0.19.2",
@@ -30,6 +31,8 @@
     "twitter": "1.7.1"
   },
   "devDependencies": {
+    "commitizen": "4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
     "husky": "4.2.5",
     "prettier": "2.0.5",
     "pretty-quick": "2.0.1"
@@ -37,6 +40,11 @@
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged --verbose"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
