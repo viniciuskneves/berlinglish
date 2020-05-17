@@ -39,7 +39,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --verbose"
+      "pre-commit": "pretty-quick --staged --verbose",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   },
   "config": {
