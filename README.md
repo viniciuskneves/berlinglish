@@ -1,3 +1,4 @@
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 ![GitHub Actions Badge](https://github.com/viniciuskneves/berlinglish/workflows/Main/badge.svg)
 
 # Berlinglish

@@ -30,13 +30,21 @@
     "twitter": "1.7.1"
   },
   "devDependencies": {
+    "commitizen": "4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
     "husky": "4.2.5",
     "prettier": "2.0.5",
     "pretty-quick": "2.0.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --verbose"
+      "pre-commit": "pretty-quick --staged --verbose",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
