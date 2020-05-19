@@ -29,14 +29,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Homebrew
-        run: |
-          sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+        run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
       - name: Tap AWS to Homebrew
-        run: |
-          $HOMEBREW_PATH tap aws/tap
+        run: $HOMEBREW_PATH tap aws/tap
+      # Using `brew reinstall` as `brew install` fails if it has already been installed
       - name: Install AWS SAM CLI
-        run: |
-          $HOMEBREW_PATH install --force aws-sam-cli
+        run: $HOMEBREW_PATH reinstall aws-sam-cli
       - name: SAM build
         run: $SAM_PATH build
       - name: SAM deploy
