@@ -5,6 +5,8 @@
     "outDir": "dist",
     "removeComments": true,
     "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   }
