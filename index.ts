@@ -157,3 +157,9 @@ exports.handler = async function handler() {
     console.log('Tweet response: ', response);
   }
 };
+
+module.exports = {
+  fetchImageUrl,
+};
+
+exports.handler();
