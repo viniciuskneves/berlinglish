@@ -19,7 +19,7 @@
   "scripts": {
     "start": "node -e 'require(\"./index.js\").handler()'",
     "build": "sam build",
-    "test": "ava",
+    "test": "jest",
     "predeploy": "npm run build",
     "deploy": "sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET",
     "prettier": "prettier --write .",
@@ -33,10 +33,10 @@
     "twitter": "1.7.1"
   },
   "devDependencies": {
-    "ava": "^3.8.2",
     "commitizen": "4.1.2",
     "cz-conventional-changelog": "^3.2.0",
     "husky": "4.2.5",
+    "jest": "^26.0.1",
     "prettier": "2.0.5",
     "pretty-quick": "2.0.1",
     "typescript": "3.8.3"
