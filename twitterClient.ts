@@ -1,3 +1,6 @@
+// FIXME: For now Typescript check will be ignored
+// @ts-nocheck
+
 const Twitter = require('twitter');
 
 const client = new Twitter({
