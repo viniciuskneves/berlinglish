@@ -26,24 +26,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: ci
     if: github.event_name == 'push'
-    env:
-      HOMEBREW_PATH: /home/linuxbrew/.linuxbrew/bin/brew
-      SAM_PATH: /home/linuxbrew/.linuxbrew/opt/aws-sam-cli/bin/sam
     steps:
       - uses: actions/checkout@v2
-      - name: Install Homebrew
-        run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
       - name: Tap AWS to Homebrew
-        run: $HOMEBREW_PATH tap aws/tap
+        run: brew tap aws/tap
       # Using `brew reinstall` as `brew install` fails if it has already been installed
       - name: Install AWS SAM CLI
-        run: $HOMEBREW_PATH reinstall aws-sam-cli
+        run: brew reinstall aws-sam-cli
       - name: Typescript build
         run: npm run typescript:build
       - name: SAM build
-        run: $SAM_PATH build
+        run: sam build
       - name: SAM deploy
-        run: $SAM_PATH deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET
+        run: sam deploy --parameter-overrides TwitterApiKey=$TWITTER_API_KEY TwitterApiSecretKey=$TWITTER_API_SECRET_KEY TwitterAccessToken=$TWITTER_ACCESS_TOKEN TwitterAccessTokenSecret=$TWITTER_ACCESS_TOKEN_SECRET
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET_KEY: ${{ secrets.TWITTER_API_SECRET_KEY }}
