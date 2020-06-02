@@ -32,7 +32,6 @@
     "twitter": "1.7.1"
   },
   "devDependencies": {
-    "@types/cheerio": "0.22.18",
     "commitizen": "4.1.2",
     "cz-conventional-changelog": "^3.2.0",
     "husky": "4.2.5",
