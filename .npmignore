@@ -1,5 +1,5 @@
 # Those files will be ignored by SAM build
 template.yaml
 samconfig.toml
-index.ts
+*.ts
 tsconfig.json

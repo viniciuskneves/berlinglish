@@ -1,8 +1,10 @@
 // FIXME: For now Typescript check will be ignored
 // @ts-nocheck
 
+import cheerio from 'cheerio';
+import { fetchArticles } from './BerlinDE';
+
 const axios = require('axios');
-const cheerio = require('cheerio');
 const Twitter = require('twitter');
 const client = new Twitter({
   consumer_key: process.env.TWITTER_API_KEY,
@@ -13,37 +15,6 @@ const client = new Twitter({
 const placeId = '3078869807f9dd36'; // Berlin's place ID
 
 const BASE_URL = 'https://www.berlin.de';
-const NEWS_PATH = '/en/news/';
-
-async function fetchArticles() {
-  const response = await axios(`${BASE_URL}${NEWS_PATH}`);
-  const $ = cheerio.load(response.data);
-  // .special might include some "random" articles
-  const articles = $('#hnews')
-    .parent()
-    .find('article')
-    .not('.special')
-    .map(function () {
-      const heading = $(this).find('.heading');
-      return {
-        title: heading.text(),
-        link: `${BASE_URL}${heading.find('a').attr('href')}`,
-      };
-    })
-    .toArray();
-
-  console.log('Fetched articles: ', articles);
-
-  return articles;
-}
-
-async function fetchFirst3Articles() {
-  const articles = await fetchArticles();
-
-  console.log('Selected 3 articles: ', articles);
-
-  return articles.slice(0, 3);
-}
 
 async function postTweet({ status, media_ids }) {
   const response = await client.post('statuses/update', {
@@ -133,7 +104,7 @@ async function homeTimeline() {
 
 exports.handler = async function handler() {
   const [articles, tweets] = await Promise.all([
-    fetchFirst3Articles(),
+    fetchArticles(),
     homeTimeline(),
   ]);
   const newArticles = articles.filter(
