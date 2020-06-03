@@ -2,7 +2,7 @@ name: Main
 
 on:
   push:
-    branches: [fix/typescript-build]
+    branches: [master]
   pull_request:
     branches: [master]
 
