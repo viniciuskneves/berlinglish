@@ -2,7 +2,7 @@ name: Main
 
 on:
   push:
-    branches: [master]
+    branches: [fix/typescript/build]
   pull_request:
     branches: [master]
 
@@ -28,6 +28,13 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
+      - name: Read .nvmrc
+        run: echo "::set-output name=NODE_VERSION::$(cat .nvmrc)"
+        id: nvm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.nvm.outputs.NVMRC }}
+      - run: npm ci
       - name: Typescript build
         run: npm run typescript:build
       - name: SAM build
