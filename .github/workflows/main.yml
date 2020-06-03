@@ -28,11 +28,6 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
-      - name: Tap AWS to Homebrew
-        run: brew tap aws/tap
-      # Using `brew reinstall` as `brew install` fails if it has already been installed
-      - name: Install AWS SAM CLI
-        run: brew reinstall aws-sam-cli
       - name: Typescript build
         run: npm run typescript:build
       - name: SAM build
