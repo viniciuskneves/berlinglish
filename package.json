@@ -24,7 +24,8 @@
     "prettier": "prettier --write .",
     "prettier:ci": "prettier --check .",
     "typescript:build": "tsc",
-    "typescript:ci": "tsc --noEmit"
+    "typescript:ci": "tsc --noEmit",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "0.19.2",
