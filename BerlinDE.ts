@@ -1,16 +1,23 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import cheerio from 'cheerio';
 
 const BASE_URL = 'https://www.berlin.de';
 const NEWS_PATH = '/en/news/';
 
-export async function fetchArticles(): Promise<Array<BerlinDEArticle>> {
-  const response: AxiosResponse<string> = await axios(
-    `${BASE_URL}${NEWS_PATH}`,
-  );
-  const $: CheerioStatic = cheerio.load(response.data);
+export async function fetchArticles() {
+  const URL = `${BASE_URL}${NEWS_PATH}`;
+
+  console.log('Fetching articles from ', URL);
+
+  const response = await axios.get<string>(`${BASE_URL}${NEWS_PATH}`);
+  return cheerio.load(response.data);
+}
+
+export function parseArticles($: CheerioStatic) {
+  console.log('Parsing articles');
+
   // .special might include some "random" articles
-  const articles: Array<BerlinDEArticle> = $('#hnews')
+  const articles = $('#hnews')
     .parent()
     .find('article')
     .not('.special')
@@ -22,13 +29,9 @@ export async function fetchArticles(): Promise<Array<BerlinDEArticle>> {
         link: `${BASE_URL}${heading.find('a').attr('href')}`,
       };
     })
-    .toArray();
+    .toArray() as BerlinDEArticle[];
 
-  console.log('Fetched articles: ', articles);
+  console.log('Parsed articles: ', articles);
 
   return articles;
-}
-
-export function example(num1: number, num2: number): number {
-  return num1 + num2;
 }

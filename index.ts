@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 import cheerio from 'cheerio';
-import { fetchArticles } from './BerlinDE';
+import { fetchArticles, parseArticles } from './BerlinDE';
 
 const axios = require('axios');
 const Twitter = require('twitter');
@@ -103,10 +103,11 @@ async function homeTimeline() {
 }
 
 exports.handler = async function handler() {
-  const [articles, tweets] = await Promise.all([
+  const [articlesDocument, tweets] = await Promise.all([
     fetchArticles(),
     homeTimeline(),
   ]);
+  const articles = parseArticles(articlesDocument);
   const newArticles = articles.filter(
     (article) => !tweets.includes(article.title),
   );
