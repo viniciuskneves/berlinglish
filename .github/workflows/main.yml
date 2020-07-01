@@ -16,7 +16,7 @@ jobs:
         id: nvm
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
       - run: npm ci
       - name: Run Prettier check
         run: npm run prettier:ci
@@ -33,7 +33,7 @@ jobs:
         id: nvm
       - uses: actions/setup-node@v1
         with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
       - run: npm ci
       - name: Typescript build
         run: npm run typescript:build
