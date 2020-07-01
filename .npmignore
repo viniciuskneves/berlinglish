@@ -1,5 +1,13 @@
 # Those files will be ignored by SAM build
+
+# SAM config files
 template.yaml
 samconfig.toml
+
+# Typescript
 *.ts
 tsconfig.json
+
+# Tests (Jest)
+*.spec.js
+*.config.js
