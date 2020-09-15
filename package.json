@@ -33,7 +33,7 @@
     "twitter": "1.7.1"
   },
   "devDependencies": {
-    "@types/jest": "26.0.10",
+    "@types/jest": "26.0.13",
     "commitizen": "4.2.1",
     "cz-conventional-changelog": "3.3.0",
     "husky": "4.3.0",
