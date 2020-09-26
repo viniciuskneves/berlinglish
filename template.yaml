@@ -23,7 +23,7 @@ Parameters:
 Globals:
   Function:
     Runtime: nodejs12.x
-    Timeout: 5
+    Timeout: 30
     Environment:
       Variables:
         TWITTER_API_KEY: !Ref TwitterApiKey
