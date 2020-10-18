@@ -1,5 +1,6 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-![GitHub Actions Badge](https://github.com/viniciuskneves/berlinglish/workflows/Main/badge.svg)
+![GitHub Actions CI Badge](https://github.com/viniciuskneves/berlinglish/workflows/CI/badge.svg)
+![GitHub Actions CD Badge](https://github.com/viniciuskneves/berlinglish/workflows/CD/badge.svg)
 
 # Berlinglish
 
