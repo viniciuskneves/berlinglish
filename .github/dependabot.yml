@@ -1,18 +1,17 @@
-labels: &labels
-  - 'dependencies'
-  - 'dependabot'
-
-schedule: &schedule
-  interval: weekly
-
 version: 2
 updates:
   - package-ecosystem: npm
     directory: /
-    schedule: *schedule
-    labels: *labels
+    schedule:
+      interval: weekly
+    labels:
+      - 'dependencies'
+      - 'dependabot'
 
   - package-ecosystem: github-actions
     directory: /
-    schedule: *schedule
-    labels: *labels
+    schedule:
+      interval: weekly
+    labels:
+      - 'dependencies'
+      - 'dependabot'
