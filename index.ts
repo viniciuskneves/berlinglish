@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 import cheerio from 'cheerio';
+import unescape from 'unescape';
 import { fetchArticles, parseArticles } from './BerlinDE';
 
 const axios = require('axios');
@@ -92,7 +93,9 @@ async function fetchImageUrl(url) {
 async function homeTimeline() {
   try {
     const response = await client.get('statuses/user_timeline', {});
-    const responseTitles = response.map((tweet) => tweet.text.split('\n')[0]);
+    const responseTitles = response.map((tweet) =>
+      unescape(tweet.text.split('\n')[0]),
+    );
 
     console.log('Last tweets titles: ', responseTitles);
 

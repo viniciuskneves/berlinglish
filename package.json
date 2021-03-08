@@ -30,7 +30,8 @@
   "dependencies": {
     "axios": "0.21.1",
     "cheerio": "1.0.0-rc.5",
-    "twitter": "1.7.1"
+    "twitter": "1.7.1",
+    "unescape": "1.0.1"
   },
   "devDependencies": {
     "@types/jest": "26.0.20",
