@@ -115,13 +115,11 @@ describe('parseArticles', () => {
     const expected: BerlinDEArticle[] = [
       {
         title: 'Three corona test sites will be closed',
-        link:
-          'https://www.berlin.de/en/news/coronavirus/6221479-6098215-three-corona-test-sites-will-be-closed.en.html',
+        link: 'https://www.berlin.de/en/news/coronavirus/6221479-6098215-three-corona-test-sites-will-be-closed.en.html',
       },
       {
         title: 'Berlin: Free corona tests for all are possible',
-        link:
-          'https://www.berlin.de/en/news/coronavirus/6219440-6098215-mueller-stellt-coronatests-fuer-alle-in-.en.html',
+        link: 'https://www.berlin.de/en/news/coronavirus/6219440-6098215-mueller-stellt-coronatests-fuer-alle-in-.en.html',
       },
     ];
     const parseArticles = BerlinDE.parseArticles($);
@@ -134,13 +132,11 @@ describe('parseArticles', () => {
     const expected: BerlinDEArticle[] = [
       {
         title: 'Three corona test sites will be closed',
-        link:
-          'https://www.berlin.de/en/news/coronavirus/6221479-6098215-three-corona-test-sites-will-be-closed.en.html',
+        link: 'https://www.berlin.de/en/news/coronavirus/6221479-6098215-three-corona-test-sites-will-be-closed.en.html',
       },
       {
         title: 'Berlin: Free corona tests for all are possible',
-        link:
-          'https://www.berlin.de/en/news/coronavirus/6219440-6098215-mueller-stellt-coronatests-fuer-alle-in-.en.html',
+        link: 'https://www.berlin.de/en/news/coronavirus/6219440-6098215-mueller-stellt-coronatests-fuer-alle-in-.en.html',
       },
     ];
     const parseArticles = BerlinDE.parseArticles($);
