@@ -112,7 +112,7 @@ describe('parseArticles', () => {
 
   it('gets article title and link', () => {
     const $ = cheerio.load(HTML);
-    const expected: BerlinDEArticle[] = [
+    const expected = [
       {
         title: 'Three corona test sites will be closed',
         link: 'https://www.berlin.de/en/news/coronavirus/6221479-6098215-three-corona-test-sites-will-be-closed.en.html',
@@ -124,12 +124,12 @@ describe('parseArticles', () => {
     ];
     const parseArticles = BerlinDE.parseArticles($);
 
-    expect(parseArticles).toEqual<BerlinDEArticle[]>(expected);
+    expect(parseArticles).toEqual(expected);
   });
 
   it('ignores .special articles', () => {
     const $ = cheerio.load(specialHTML);
-    const expected: BerlinDEArticle[] = [
+    const expected = [
       {
         title: 'Three corona test sites will be closed',
         link: 'https://www.berlin.de/en/news/coronavirus/6221479-6098215-three-corona-test-sites-will-be-closed.en.html',
@@ -141,6 +141,6 @@ describe('parseArticles', () => {
     ];
     const parseArticles = BerlinDE.parseArticles($);
 
-    expect(parseArticles).toEqual<BerlinDEArticle[]>(expected);
+    expect(parseArticles).toEqual(expected);
   });
 });
