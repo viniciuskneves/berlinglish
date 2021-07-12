@@ -34,7 +34,7 @@
     "unescape": "1.0.1"
   },
   "devDependencies": {
-    "@types/jest": "26.0.23",
+    "@types/jest": "26.0.24",
     "commitizen": "4.2.4",
     "cz-conventional-changelog": "3.3.0",
     "husky": "6.0.0",
