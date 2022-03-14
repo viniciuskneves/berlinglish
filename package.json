@@ -28,7 +28,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "0.21.1",
+    "axios": "0.26.1",
     "cheerio": "1.0.0-rc.9",
     "twitter": "1.7.1",
     "unescape": "1.0.1"
