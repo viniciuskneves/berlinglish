@@ -8,6 +8,11 @@ const client = new TwitterApi({
   accessSecret: process.env.TWITTER_ACCESS_SECRET!,
 });
 
+function fetchHomeTimeline() {
+  console.log("Fetching home timeline");
+  return client.v1.userTimelineByUsername("berlinglish");
+}
+
 function textFromTweets(tweets: TweetV1TimelineResult) {
   return tweets.map((tweet) => {
     return tweet.full_text?.split("\n")[0];
@@ -16,11 +21,10 @@ function textFromTweets(tweets: TweetV1TimelineResult) {
 
 export async function handler() {
   const [homeTimeline, articlesPageHTML] = await Promise.all([
-    client.v1.userTimelineByUsername("berlinglish"),
+    fetchHomeTimeline(),
     fetchArticles(),
   ]);
   const tweets = textFromTweets(homeTimeline.tweets);
-  console.log(tweets[0]);
   const articles = parseArticles(articlesPageHTML);
   const newArticles = articles.filter((article) => {
     return !tweets.includes(article.title);
@@ -43,9 +47,7 @@ export async function handler() {
 
   console.log(status);
 
-  // const newTweet = await client.v1.tweet(status, {});
+  const newTweet = await client.v1.tweet(status, {});
 
-  // console.log("New tweet", newTweet, { place_id: "3078869807f9dd36" });
+  console.log("New tweet", newTweet, { place_id: "3078869807f9dd36" });
 }
-
-handler();
