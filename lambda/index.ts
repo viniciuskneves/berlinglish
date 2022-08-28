@@ -1,5 +1,15 @@
-import { TweetV1TimelineResult, TwitterApi } from "twitter-api-v2";
-import { fetchArticles, parseArticles } from "./BerlinDE";
+import axios from "axios";
+import {
+  EUploadMimeType,
+  TweetV1TimelineResult,
+  TwitterApi,
+} from "twitter-api-v2";
+import {
+  fetchArticle,
+  fetchArticles,
+  parseArticleImages,
+  parseArticles,
+} from "./BerlinDE";
 
 const client = new TwitterApi({
   appKey: process.env.TWITTER_APP_KEY!,
@@ -19,6 +29,17 @@ function textFromTweets(tweets: TweetV1TimelineResult) {
   });
 }
 
+async function uploadImage(url: string): Promise<string> {
+  const { data } = await axios.get<ArrayBuffer>(url, {
+    responseType: "arraybuffer",
+  });
+  const mediaId = await client.v1.uploadMedia(Buffer.from(data), {
+    mimeType: EUploadMimeType.Jpeg,
+  });
+
+  return mediaId;
+}
+
 export async function handler() {
   const [homeTimeline, articlesPageHTML] = await Promise.all([
     fetchHomeTimeline(),
@@ -29,7 +50,7 @@ export async function handler() {
   const newArticles = articles.filter((article) => {
     return !tweets.includes(article.title);
   });
-  // We get the oldes from all new articles so we don't spam
+  // We get the oldest from all new articles so we don't spam
   const oldestNewArticle = newArticles.pop();
 
   if (!oldestNewArticle) {
@@ -40,6 +61,10 @@ export async function handler() {
 
   console.log("New article", oldestNewArticle);
 
+  const articleHTML = await fetchArticle(oldestNewArticle);
+  const articleImagesURLs = await parseArticleImages(articleHTML);
+  const mediaIds = await Promise.all(articleImagesURLs.map(uploadImage));
+
   const status = [
     oldestNewArticle.title,
     `Read more: ${oldestNewArticle.link}`,
@@ -48,6 +73,7 @@ export async function handler() {
   console.log(status);
 
   const newTweet = await client.v1.tweet(status, {
+    media_ids: mediaIds,
     place_id: "3078869807f9dd36",
   });
 
