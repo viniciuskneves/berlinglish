@@ -47,7 +47,9 @@ export async function handler() {
 
   console.log(status);
 
-  const newTweet = await client.v1.tweet(status, {});
+  const newTweet = await client.v1.tweet(status, {
+    place_id: "3078869807f9dd36",
+  });
 
   console.log("New tweet", newTweet, { place_id: "3078869807f9dd36" });
 }
