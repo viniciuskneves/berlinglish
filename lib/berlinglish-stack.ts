@@ -1,7 +1,7 @@
-import { Stack, StackProps } from "aws-cdk-lib";
+import { Duration, Stack, StackProps } from "aws-cdk-lib";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
-import { NodejsFunction, OutputFormat } from "aws-cdk-lib/aws-lambda-nodejs";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 
 export class BerlinglishStack extends Stack {
@@ -17,6 +17,7 @@ export class BerlinglishStack extends Stack {
         // bundling: {
         //   format: OutputFormat.ESM,
         // },
+        timeout: Duration.seconds(10), // Default 3 seconds timeout is not enough to do all the process, it takes around 5 seconds
         environment: {
           TWITTER_APP_KEY: process.env.TWITTER_APP_KEY!,
           TWITTER_APP_SECRET: process.env.TWITTER_APP_SECRET!,
